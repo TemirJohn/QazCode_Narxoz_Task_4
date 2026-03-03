@@ -37,10 +37,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     public Order createOrder(OrderDto orderDto) {
-        Customer customer = customerService.getCustomerById(orderDto.customerId());
+        customerService.getCustomerById(orderDto.customerId());
 
         Order order = new Order();
-        order.setCustomerId(customer);
+        order.setCustomerId(orderDto.customerId());
         order.setAmount(orderDto.amount());
         order.setStatus(OrderStatus.NEW);
 
@@ -50,9 +50,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public Order updateOrder(Long id, OrderDto orderDto) {
         Order order = getOrderById(id);
-        Customer customer = customerService.getCustomerById(orderDto.customerId());
+        customerService.getCustomerById(orderDto.customerId());
 
-        order.setCustomerId(customer);
+        order.setCustomerId(orderDto.customerId());
         order.setAmount(orderDto.amount());
 
         return orderRepository.save(order);
